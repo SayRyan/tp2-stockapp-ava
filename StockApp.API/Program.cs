@@ -1,3 +1,5 @@
+using Serilog;
+using Serilog.Core;
 using StockApp.Domain.Interfaces;
 using StockApp.Infra.Data.Repositories;
 using StockApp.Infra.IoC;
@@ -7,6 +9,15 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host.UseSerilog((context, loggerConfiguration) =>
+        {
+            loggerConfiguration
+                .ReadFrom.Configuration(context.Configuration)
+                .Enrich.FromLogContext()                       
+                .WriteTo.Console()                             
+                .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day);
+        });
 
         builder.Services.AddCors(options =>
         {
