@@ -2,15 +2,18 @@
 using StockApp.Domain.Interfaces;
 using StockApp.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace StockApp.Infra.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
         ApplicationDbContext _productContext;
-        public ProductRepository(ApplicationDbContext context)
+        private readonly ILogger<ProductRepository> _logger;
+        public ProductRepository(ApplicationDbContext context, ILogger<ProductRepository> logger)
         {
             _productContext = context;
+            _logger = logger;
         }
 
         public async Task<Product> Create(Product product)
@@ -28,6 +31,7 @@ namespace StockApp.Infra.Data.Repositories
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
+            _logger.LogInformation("Teste de log");
             return await _productContext.Products.ToListAsync();
         }
 
