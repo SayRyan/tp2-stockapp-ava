@@ -93,6 +93,82 @@ namespace StockApp.Infra.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Caderno",
+                            Description = "Caderno de 200 folhas",
+                            Image = "caderno.jpg",
+                            Price = 15.99m,
+                            Stock = 100,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Mouse",
+                            Description = "Mouse óptico sem fio",
+                            Image = "mouse.jpg",
+                            Price = 49.99m,
+                            Stock = 50,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Caneta",
+                            Description = "Caneta esferográfica azul",
+                            Image = "caneta.jpg",
+                            Price = 1.99m,
+                            Stock = 200,
+                            CategoryId = 1
+                        });
+                });
+
+            modelBuilder.Entity("StockApp.Domain.Entities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ContactEmail")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Elon Musk",
+                            ContactEmail = "elontesla@email.com",
+                            PhoneNumber = "16997287891"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Luva de Pedreiro",
+                            ContactEmail = "recebaaa@email.com",
+                            PhoneNumber = "16992282392"
+                        });
                 });
 
             modelBuilder.Entity("StockApp.Domain.Entities.Product", b =>

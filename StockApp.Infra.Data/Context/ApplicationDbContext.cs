@@ -13,7 +13,6 @@ namespace StockApp.Infra.Data.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
             : base(options)
         { }
-        //sqlservericoma.database.windows.net
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
