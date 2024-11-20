@@ -44,19 +44,15 @@ namespace StockApp.API.Controllers
             {
                 return BadRequest("Invalid Data");
             }
-            await _categoryService.Add(categoryDTO);
+            var category = await _categoryService.Add(categoryDTO);
 
             return new CreatedAtRouteResult("GetCategory", 
-                new { id = categoryDTO.Id }, categoryDTO);
+                new { id = category.Id }, categoryDTO);
         }
 
         [HttpPut(Name ="Update Category")]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDTO)
         {
-            if(id != categoryDTO.Id)
-            {
-                return BadRequest("Inconsisted Id");
-            }
             if(categoryDTO == null)
             {
                 return BadRequest("Update Data Invalid");
