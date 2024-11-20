@@ -20,9 +20,10 @@ namespace StockApp.Infra.Data.Repositories
             return product;
         }
 
-        public async Task<Product> GetById(int? id)
+        public async Task<Product> GetById(int id)
         {
-            return await _productContext.Products.FindAsync(id);
+            var product = await _productContext.Products.FirstOrDefaultAsync(p => p.Id == id, CancellationToken.None);
+            return product;
         }
 
         public async Task<IEnumerable<Product>> GetProducts()

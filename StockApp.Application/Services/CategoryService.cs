@@ -21,10 +21,11 @@ namespace StockApp.Application.Services
             _categoryRepository = categoryRepository;
         }
 
-        public async Task Add(CategoryDTO categoryDto)
+        public async Task<Category> Add(CategoryDTO categoryDto)
         {
             var categoryEntity = _mapper.Map<Category>(categoryDto);
             await _categoryRepository.Create(categoryEntity);
+            return categoryEntity;
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetCategories()

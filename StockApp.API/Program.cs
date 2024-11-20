@@ -1,3 +1,5 @@
+using StockApp.Domain.Interfaces;
+using StockApp.Infra.Data.Repositories;
 using StockApp.Infra.IoC;
 
 internal class Program
