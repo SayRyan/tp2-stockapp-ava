@@ -105,7 +105,7 @@ namespace StockApp.API.Controllers
         /// <returns>A categoria removida.</returns>
 
         [HttpDelete("{id:int}", Name ="Delete Category")]
-        public async Task<ActionResult<CategoryDTO>> Detele(int id)
+        public async Task<ActionResult<CategoryDTO>> Delete(int id)
         {
             var category = await _categoryService.GetCategoryById(id);
             if(category == null) 

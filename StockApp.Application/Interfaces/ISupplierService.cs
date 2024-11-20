@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace StockApp.Application.Interfaces
 {
-    public interface ICategoryService
+    public interface ISupplierService
     {
-        Task<IEnumerable<CategoryDTO>> GetCategories();
-        Task<CategoryDTO> GetCategoryById(int? id);
-        Task<Category> Add(CategoryDTO categoryDto);
-        Task Update(CategoryDTO categoryDto);
+        Task<IEnumerable<SupplierDTO>> GetSuppliers();
+        Task<SupplierDTO> GetSupplierById(int? id);
+        Task<Supplier> Add(SupplierDTO supplierDto);
+        Task Update(SupplierDTO supplierDto);
         Task Remove(int? id);
     }
 }
