@@ -5,6 +5,10 @@ using StockApp.Application.Interfaces;
 
 namespace StockApp.API.Controllers
 {
+    /// <summary>
+    /// API Controller para gerenciar operações relacionadas às categorias.
+    /// </summary>
+
     [EnableCors("AllowSpecificOrigins")]
     [Route("/api/[controller]")]
     [ApiController]
@@ -12,10 +16,20 @@ namespace StockApp.API.Controllers
     {
         private readonly ICategoryService _categoryService;
 
+        /// <summary>
+        /// Inicializa uma nova instância do <see cref="CategoriesController"/>.
+        /// </summary>
+        /// <param name="categoryService">Serviço para operações de categoria.</param>
+
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
+
+        /// <summary>
+        /// Obtém a lista de todas as categorias.
+        /// </summary>
+        /// <returns>Uma lista de categorias.</returns>
 
         [HttpGet(Name ="GetCategories")]
         public async Task<ActionResult<IEnumerable<CategoryDTO>>> Get() 
@@ -27,6 +41,13 @@ namespace StockApp.API.Controllers
             }
             return Ok(categories);
         }
+
+        /// <summary>
+        /// Obtém os detalhes de uma categoria específica pelo ID.
+        /// </summary>
+        /// <param name="id">ID da categoria.</param>
+        /// <returns>Os detalhes da categoria.</returns>
+
         [HttpGet("{id:int}", Name = "GetCategory")]
         public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
@@ -37,6 +58,13 @@ namespace StockApp.API.Controllers
             }
             return Ok(category);
         }
+
+        /// <summary>
+        /// Cria uma nova categoria.
+        /// </summary>
+        /// <param name="categoryDTO">Objeto DTO contendo os dados da categoria.</param>
+        /// <returns>A categoria recém-criada.</returns>
+
         [HttpPost(Name ="Create Category")]
         public async Task<ActionResult> Post([FromBody] CategoryDTO categoryDTO)
         {
@@ -50,6 +78,13 @@ namespace StockApp.API.Controllers
                 new { id = category.Id }, categoryDTO);
         }
 
+        /// <summary>
+        /// Atualiza os dados de uma categoria existente.
+        /// </summary>
+        /// <param name="id">ID da categoria a ser atualizada.</param>
+        /// <param name="categoryDTO">Objeto DTO contendo os novos dados da categoria.</param>
+        /// <returns>Resultado da atualização.</returns>
+
         [HttpPut(Name ="Update Category")]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDTO)
         {
@@ -62,6 +97,12 @@ namespace StockApp.API.Controllers
 
             return Ok(categoryDTO);
         }
+
+        /// <summary>
+        /// Remove uma categoria pelo ID.
+        /// </summary>
+        /// <param name="id">ID da categoria a ser removida.</param>
+        /// <returns>A categoria removida.</returns>
 
         [HttpDelete("{id:int}", Name ="Delete Category")]
         public async Task<ActionResult<CategoryDTO>> Detele(int id)
