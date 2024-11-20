@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using StockApp.Application.DTOs;
 using StockApp.Application.Interfaces;
 
 namespace StockApp.API.Controllers
 {
+    [EnableCors("AllowSpecificOrigins")]
     [Route("/api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
