@@ -4,6 +4,9 @@ using StockApp.Application.DTOs;
 using StockApp.Application.Interfaces;
 using StockApp.Application.Services;
 using StockApp.Domain.Interfaces;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace StockApp.API.Controllers
 {
@@ -16,6 +19,13 @@ namespace StockApp.API.Controllers
     public class SuppliersController : ControllerBase
     {
         private readonly ISupplierService _supplierService;
+
+        [HttpPost("send-sms")]
+        public async Task<IActionResult> SendSms([FromQuery] string phoneNumber, [FromQuery] string message, [FromServices] ISmsService smsService)
+        {
+            await smsService.SendSmsAsync(phoneNumber, message);
+            return Ok("SMS enviado com sucesso!");
+        }
 
         /// <summary>
         /// Inicializa uma nova instância do <see cref="SuppliersController"/>.

@@ -2,9 +2,12 @@
 using StockApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using StockApp.Application.Services;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
+using StockApp.Domain.Interfaces;
 
 namespace StockApp.Application.Interfaces
 {
