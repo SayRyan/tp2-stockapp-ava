@@ -124,5 +124,15 @@ namespace StockApp.API.Controllers
 
             return Ok(supplier);
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<SupplierDTO>>> SearchSuppliers(
+            [FromQuery] string name,
+            [FromQuery] string contactEmail,
+            [FromQuery] string phoneNumber)
+        {
+            var suppliers = await _supplierService.SearchSuppliersAsync(name, contactEmail, phoneNumber);
+            return Ok(suppliers);
+        }
     }
 }

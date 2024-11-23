@@ -49,5 +49,17 @@ namespace StockApp.Infra.Data.Repositories
             await _supplierContext.SaveChangesAsync();
             return supplier;
         }
+
+        public async Task<IEnumerable<Supplier>> SearchAsync(string name, string contactEmail, string phoneNumber)
+        {
+            var query = _supplierContext.Suppliers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(s => s.Name.Contains(name));
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }
