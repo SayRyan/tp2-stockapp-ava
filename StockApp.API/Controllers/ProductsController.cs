@@ -111,5 +111,15 @@ namespace StockApp.API.Controllers
             await _productService.Remove(id);
             return Ok();
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> SearchProducts(
+            [FromQuery] string name,
+            [FromQuery] decimal? minPrice,
+            [FromQuery] decimal? maxPrice)
+        {
+            var products = await _productService.SearchProductsAsync(name, minPrice, maxPrice);
+            return Ok(products);
+        } 
     }
 }

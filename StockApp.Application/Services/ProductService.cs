@@ -57,5 +57,18 @@ namespace StockApp.Application.Services
             var productEntity = _mapper.Map<Product>(productDto);
             await _productRepository.Update(productEntity);
         }
+
+        public async Task<IEnumerable<ProductDTO>> SearchProductsAsync(string name, decimal? minPrice, decimal? maxPrice)
+        {
+            var products = await _productRepository.SearchAsync(name, minPrice, maxPrice);
+
+            return products.Select(product => new ProductDTO
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description
+            });
+        }
     }
 }
