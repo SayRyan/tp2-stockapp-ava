@@ -33,6 +33,7 @@ namespace StockApp.API.Controllers
         /// <returns>Uma lista de produtos.</returns>
 
         [HttpGet(Name = "GetProducts")]
+        [ResponseCache(CacheProfileName = "Default60")]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
             var products = await _productService.GetProducts();
@@ -51,6 +52,7 @@ namespace StockApp.API.Controllers
         /// <returns>Os detalhes do produto.</returns>
 
         [HttpGet("{id:int}", Name = "GetProduct")]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<ProductDTO>> Get(int id)
         {
             var product = await _productService.GetProductById(id);
@@ -113,6 +115,7 @@ namespace StockApp.API.Controllers
         }
 
         [HttpGet("search")]
+        [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> SearchProducts(
             [FromQuery] string name,
             [FromQuery] decimal? minPrice,

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Serilog.Core;
 using StockApp.Domain.Interfaces;
@@ -31,8 +32,27 @@ internal class Program
             });
         });
 
+        builder.Services.AddResponseCaching();
+
         // Add services to the container.
         builder.Services.AddInfrastructureAPI(builder.Configuration);
+
+        builder.Services.AddControllers(options =>
+        {
+            options.CacheProfiles.Add("Default30",
+                new CacheProfile
+                {
+                    Duration = 30,
+                    Location = ResponseCacheLocation.Any,
+                });
+
+            options.CacheProfiles.Add("Default60",
+                new CacheProfile
+                {
+                    Duration = 60,
+                    Location = ResponseCacheLocation.Any,
+                });
+        });
 
         builder.Services.AddControllers();
 

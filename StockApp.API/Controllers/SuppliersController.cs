@@ -21,6 +21,7 @@ namespace StockApp.API.Controllers
         private readonly ISupplierService _supplierService;
 
         [HttpPost("send-sms")]
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> SendSms([FromQuery] string phoneNumber, [FromQuery] string message, [FromServices] ISmsService smsService)
         {
             await smsService.SendSmsAsync(phoneNumber, message);
@@ -43,6 +44,7 @@ namespace StockApp.API.Controllers
         /// <returns>Uma lista de fornecedores.</returns>
 
         [HttpGet(Name = "GetSuppliers")]
+        [ResponseCache(CacheProfileName = "Default30")]
         public async Task<ActionResult<IEnumerable<SupplierDTO>>> Get()
         {
             var suppliers = await _supplierService.GetSuppliers();
@@ -60,6 +62,7 @@ namespace StockApp.API.Controllers
         /// <returns>Os detalhes do fornecedor.</returns>
 
         [HttpGet("{id:int}", Name = "GetSupplier")]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<SupplierDTO>> Get(int id)
         {
             var supplier = await _supplierService.GetSupplierById(id);
@@ -126,6 +129,7 @@ namespace StockApp.API.Controllers
         }
 
         [HttpGet("search")]
+        [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<IEnumerable<SupplierDTO>>> SearchSuppliers(
             [FromQuery] string name,
             [FromQuery] string contactEmail,

@@ -32,6 +32,7 @@ namespace StockApp.API.Controllers
         /// <returns>Uma lista de categorias.</returns>
 
         [HttpGet(Name ="GetCategories")]
+        [ResponseCache(CacheProfileName = "Default30")]
         public async Task<ActionResult<IEnumerable<CategoryDTO>>> Get() 
         {
             var categories = await _categoryService.GetCategories();
@@ -49,6 +50,7 @@ namespace StockApp.API.Controllers
         /// <returns>Os detalhes da categoria.</returns>
 
         [HttpGet("{id:int}", Name = "GetCategory")]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
             var category = await _categoryService.GetCategoryById(id);
