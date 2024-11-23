@@ -18,5 +18,6 @@ namespace StockApp.Application.Interfaces
         Task<Supplier> Add(SupplierDTO supplierDto);
         Task Update(SupplierDTO supplierDto);
         Task Remove(int? id);
+        Task<IEnumerable<SupplierDTO>> SearchSuppliersAsync(string name, string contactEmail, string phoneNumber);
     }
 }

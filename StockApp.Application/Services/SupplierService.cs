@@ -52,5 +52,17 @@ namespace StockApp.Application.Services
             var supplierEntity = _mapper.Map<Supplier>(supplierDto);
             await _supplierRepository.Update(supplierEntity);
         }
+
+        public async Task<IEnumerable<SupplierDTO>> SearchSuppliersAsync(string name, string contactEmail, string phoneNumber)
+        {
+            var suppliers = await _supplierRepository.SearchAsync(name, contactEmail, phoneNumber);
+
+            return suppliers.Select(supplier => new SupplierDTO
+            {
+                Name = supplier.Name,
+                ContactEmail = supplier.ContactEmail,
+                PhoneNumber = supplier.PhoneNumber
+            });
+        }
     }
 }
